@@ -16,4 +16,4 @@
 2.  Run the app: `python invoice_gui.py`
 
 ## EXE Download
-Κατεβάστε την έτοιμη εφαρμογή από την ενότητα [Releases].
+## Κατεβάστε την έτοιμη εφαρμογή από την ενότητα [Releases].
