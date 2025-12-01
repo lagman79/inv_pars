@@ -15,5 +15,4 @@
 1.  Install dependencies: `pip install -r requirements.txt`
 2.  Run the app: `python invoice_gui.py`
 
-## EXE Download
-## Κατεβάστε την έτοιμη εφαρμογή από την ενότητα [Releases].
+
