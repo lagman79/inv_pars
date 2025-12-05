@@ -1,268 +1,124 @@
-# 📄 AI Invoice Parser  
-## Εφαρμογή εξαγωγής δεδομένων από τιμολόγια με χρήση τεχνολογίας AI
+# 🧾 AI Invoice Parser
+
+AI-powered application for extracting structured data from PDF invoices.
 
 ---
 
-# 📑 Πίνακας Περιεχομένων
-1. [Εισαγωγή](#εισαγωγή)
-2. [Κύρια Χαρακτηριστικά](#-κύρια-χαρακτηριστικά)
-3. [Απαιτήσεις Συστήματος](#-απαιτήσεις-συστήματος)
-4. [Εγκατάσταση](#-εγκατάσταση)
-5. [Διεπαφή Χρήστη (GUI)](#-διεπαφή-χρήστη-gui)
-   - [1. Ρυθμίσεις API](#1-ρυθμίσεις-api)
-   - [2. Επιλογή Αρχείων](#2-επιλογή-αρχείων)
-   - [3. Παράμετροι Εξαγωγής](#3-παράμετροι-εξαγωγής)
-   - [4. Οργάνωση & Μετονομασία Αρχείων](#4-οργάνωση--μετονομασία-αρχείων)
-   - [5. Πρόοδος & Καταγραφή (Logs)](#5-πρόοδος--καταγραφή-logs)
-   - [6. Κουμπιά Ενεργειών](#6-κουμπιά-ενεργειών)
-6. [Λειτουργίες της Εφαρμογής](#-λειτουργίες-της-εφαρμογής)
-7. [Παραγόμενο Αρχείο Excel](#-παραγόμενο-αρχείο-excel)
-8. [Screenshots](#-screenshots)
-9. [Troubleshooting](#-troubleshooting)
-10. [Συχνές Ερωτήσεις (FAQ)](#-συχνές-ερωτήσεις-faq)
-11. [Γνωστά Όρια & Τεχνικές Παρατηρήσεις](#-γνωστά-όρια--τεχνικές-παρατηρήσεις)
-12. [Μελλοντικές Βελτιώσεις](#-μελλοντικές-βελτιώσεις)
-13. [Άδεια Χρήσης](#-άδεια-χρήσης)
+# 📑 Table of Contents
+1. Introduction
+2. Key Features
+3. System Requirements
+4. Installation
+5. User Guide
+   - 1. Main Interface
+   - 2. API Key Setup
+   - 3. Select Invoice Folder
+   - 4. Settings
+   - 5. Start Parsing
+6. Output Files
+7. Troubleshooting
+8. Notes
 
 ---
 
-# 🔍 Εισαγωγή
-Η εφαρμογή **AI Invoice Parser** είναι ένα εργαλείο γραφικού περιβάλλοντος (GUI) σε Python, το οποίο χρησιμοποιεί το **Google Gemini AI** για την ανάλυση τιμολογίων και την εξαγωγή δομημένων δεδομένων σε αρχείο **Excel (.xlsx)**.
+# Introduction
 
-Υποστηριζόμενοι τύποι αρχείων:
-- PDF  
-- JPG / JPEG  
-- PNG  
-- WEBP  
+AI Invoice Parser is a simple and user-friendly Python application that extracts structured data from invoices using advanced AI models.
 
-Η εξαγωγή δεδομένων περιλαμβάνει ενδεικτικά τα παρακάτω πεδία:
-- Ημερομηνία παραστατικού  
-- Προμηθευτής & ΑΦΜ  
-- Αριθμός παραστατικού  
-- Περιγραφή  
-- Καθαρή αξία, ΦΠΑ, Τελική αξία  
-- MARK (MyData)  
-- SERIAL Number  
-- Κρατήσεις / Χαρτόσημα / Λοιπά έξοδα  
-- Σχετικό παραστατικό  
-- Σημεία φόρτωσης & προορισμού  
-- Κατηγοριοποίηση δαπάνης (ΕΣΠΑ – προαιρετικό)  
-- Δυναμικά πεδία (Full Extract)  
+You select a folder containing PDF invoices, and the application automatically generates:
+
+- A .txt file with extracted text  
+- A .json file with structured fields  
+- A .pdf copy of the original invoice  
 
 ---
 
-# 🚀 Κύρια Χαρακτηριστικά
+# Key Features
 
-### ✔ Εξαγωγή δεδομένων με AI  
-Χρήση του Google Gemini για επιστροφή δομημένου JSON.
+- Automatic AI-based extraction  
+- Clean and intuitive graphical interface  
+- Batch processing of multiple invoices  
+- Detailed logs and progress indicators  
+- Local configuration for output options  
+- API key stored locally and securely  
 
-### ✔ Κατηγοριοποίηση δαπανών ΕΣΠΑ (προαιρετική)  
-Υποστηρίζονται ενδεικτικά:
-- **Πράσινη Παραγωγική Επένδυση ΜμΕ**  
-- **Βασικός Ψηφιακός Μετασχηματισμός ΜμΕ**
+---
 
-### ✔ Full Extract Mode  
-Αναζήτηση *όλων* των πεδίων που εμφανίζονται στο τιμολόγιο.  
-Προσθήκη δυναμικών στηλών στο Excel με ελληνικές επικεφαλίδες.
+# System Requirements
 
-### ✔ Αυτόματη μετονομασία αρχείων  
-Παράδειγμα:
+- Windows 10 or 11  
+- Python 3.10 or newer  
+- Required Python packages from requirements.txt  
+
+---
+
+# Installation
+
+1. Install Python (version 3.10 or higher).  
+2. Install dependencies:
+
 ```
-ΠΡΟΜΗΘΕΥΤΗΣ_ΑΡΠΑΡΑΣΤΑΤΙΚΟΥ.jpg
+pip install -r requirements.txt
 ```
 
-### ✔ Αυτόματη ταξινόμηση σε φακέλους  
-Ομαδοποίηση ανά προμηθευτή, με επιλογή **Copy** ή **Move**.
-
-### ✔ Αρχείο Excel με μορφοποίηση  
-- Μετατροπή ημερομηνιών  
-- Μορφοποίηση ποσών  
-- Επισήμανση αποτυχημένων εγγραφών  
+3. Obtain a valid Google Gemini API key.  
+4. Save your API key inside a file called **api.txt** in the project root folder.
 
 ---
 
-# 💻 Απαιτήσεις Συστήματος
-- Windows 10/11  
-- Python 3.10+  
-- Ενεργό Google Gemini API Key  
+# User Guide
+
+## 1. Main Interface
+![Main GUI](screenshots/1_gui.png)
+
+## 2. API Key Setup
+Insert your Gemini API key into **api.txt**.
+
+![API Setup](screenshots/2_api.png)
+
+## 3. Select Invoice Folder
+Choose the folder that contains your PDF invoices.
+
+![Source Folder](screenshots/3_source_folder.png)
+
+## 4. Settings
+Configure output preferences and formats.
+
+![Settings](screenshots/4_settings.png)
+
+## 5. Start Parsing
+Press **Start** to begin invoice extraction.
+
+![Progress & Logs](screenshots/5_progress_logs.png)
 
 ---
 
-# 📦 Εγκατάσταση
-1. Εγκατάσταση βιβλιοθηκών:
-```bash
-pip install google-generativeai pandas openpyxl pillow
-```
+# Output Files
 
-2. Εκτέλεση:
-```bash
-python invoice_parser_3.py
-```
+For each invoice, the application generates:
 
----
+- `invoice_data.json` — structured extracted data  
+- `invoice_text.txt` — extracted raw text  
+- `invoice_original.pdf` — original invoice copy  
 
-# 🖥 Διεπαφή Χρήστη (GUI)
-
-## 1. Ρυθμίσεις API
-Εισαγωγή του Google Gemini API Key.  
-Αποθηκεύεται σε `settings.json`.
+All files are saved inside the same folder you selected.
 
 ---
 
-## 2. Επιλογή Αρχείων
-- Φάκελος τιμολογίων  
-- Αρχείο Excel εξόδου  
+# Troubleshooting
 
-Υποστηριζόμενοι τύποι:
-```
-PDF, JPG, JPEG, PNG, WEBP
-```
+### “API key not found”
+Ensure that **api.txt** exists and contains a valid API key.
 
----
+### “No PDF files found”
+Verify that the selected folder contains `.pdf` files.
 
-## 3. Παράμετροι Εξαγωγής
-
-### 🔹 Επιλογή Προγράμματος
-- Χωρίς κατηγοριοποίηση  
-- Πράσινη Παραγωγική Επένδυση  
-- Βασικός Ψηφιακός Μετασχηματισμός  
-
-### 🔹 Full Extract
-Προσθέτει όλα τα δυνατά πεδία που εντοπίζει η AI.
+### Extraction errors
+Check the log panel for details (corrupted or unreadable PDFs).
 
 ---
 
-## 4. Οργάνωση & Μετονομασία Αρχείων
+# Notes
 
-### ✔ Μετονομασία  
-Εφαρμόζεται μόνο σε επιτυχημένα τιμολόγια.
-
-### ✔ Ταξινόμηση  
-- Copy  
-- Move
-
----
-
-## 5. Πρόοδος & Καταγραφή (Logs)
-Εμφάνιση:
-- Προόδου  
-- Τρέχοντος αρχείου  
-- Μηνυμάτων AI  
-- Σφαλμάτων  
-- Ενεργειών (rename / move / copy)
-
----
-
-## 6. Κουμπιά Ενεργειών
-- 🚀 Εκκίνηση  
-- 🔄 Νέα Εργασία  
-- ❌ Έξοδος  
-
----
-
-# ⚙ Λειτουργίες της Εφαρμογής
-Ενδεικτικά πεδία JSON:
-
-- `date`  
-- `supplier_name`  
-- `supplier_vat`  
-- `invoice_number`  
-- `description`  
-- `net_value`  
-- `vat_value`  
-- `total_amount`  
-- `mark_code`  
-- `serial_number`  
-- `extra_charges`  
-- `related_document`  
-- `loading_place`  
-- `destination_place`  
-- `category_code`  
-- `notes`  
-- `dynamic_fields`  
-
----
-
-# 📊 Παραγόμενο Αρχείο Excel
-Η εφαρμογή:
-
-- Δημιουργεί στημένες στήλες  
-- Μορφοποιεί ποσά  
-- Μετατρέπει ημερομηνίες  
-- Χρωματίζει σφάλματα  
-- Προσθέτει dynamic fields  
-
----
-
-# 🖼 Screenshots
-
-### 1️⃣ Κεντρικό GUI  
-![GUI](./screenshots/1_gui.png)
-
-### 2️⃣ Ρυθμίσεις API  
-![API Settings](./screenshots/2_api.png)
-
-### 3️⃣ Επιλογή Φακέλου Εισαγωγής  
-![Source Folder](./screenshots/3_source_folder.png)
-
-### 4️⃣ Ρυθμίσεις Οργάνωσης  
-![Settings](./screenshots/4_settings.png)
-
-### 5️⃣ Πρόοδος & Καταγραφή  
-![Progress & Logs](./screenshots/5_progress_logs.png)
-
-### 6️⃣ Κουμπιά Ενεργειών  
-![Start / New Task / Exit](./screenshots/6_start_new_exit.png)
-
----
-
-# 🛠 Troubleshooting
-
-### ❌ API Key Error  
-Ελέγξτε ότι το κλειδί είναι σωστό και ενεργό.
-
-### ❌ 429 Too Many Requests  
-Περιορισμός Google — μειώστε τα batches.
-
-### ❌ Μη έγκυρο JSON  
-Κακή εικόνα ή δυσανάγνωστο παραστατικό.
-
-### ❌ Timeout  
-Αδύναμη σύνδεση ή μεγάλα αρχεία.
-
-### ❌ Excel Permission Error  
-Το Excel αρχείο είναι ανοιχτό — κλείστε το.
-
----
-
-# ❓ FAQ
-
-### Μπορώ να επεξεργαστώ εικόνες;  
-Ναι.
-
-### Χάνονται τα αρχεία;  
-Μόνο με Move.
-
-### Dynamic fields πάντα ενεργά;  
-Μόνο με Full Extract.
-
----
-
-# ⚠ Γνωστά Όρια
-
-- Η ποιότητα OCR εξαρτάται από την Google.  
-- Μεγάλα αρχεία = μεγαλύτεροι χρόνοι.  
-- Τα filenames καθαρίζονται από απαγορευμένους χαρακτήρες.  
-
----
-
-# 🔮 Μελλοντικές Βελτιώσεις
-- Drag & drop  
-- Παράλληλη επεξεργασία  
-- Custom mapping  
-- OCR fallback  
-
----
-
-# 📜 Άδεια Χρήσης
-Το έργο διατίθεται για προσωπική χρήση.
+- Your API key stays locally on your machine and is ignored by Git.  
+- The application only sends text content to the AI model for extraction — no files are uploaded.
