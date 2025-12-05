@@ -1,5 +1,0 @@
-google-generativeai
-pandas
-openpyxl
-tk
-pyinstaller
