@@ -201,7 +201,7 @@ class DataProcessor:
 class InvoiceApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("AI Invoice Extractor Pro V19 (Ultimate)")
+        self.root.title("AI Invoice Extractor")
         self.root.geometry("800x900")
         
         self.input_folder = tk.StringVar()
