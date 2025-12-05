@@ -1,0 +1,30 @@
+# --- Αρχεία Ασφαλείας (ΜΗΝ ΤΑ ΑΝΕΒΑΣΕΙΣ ΠΟΤΕ) ---
+settings.json
+api.txt
+*.key
+.env
+
+# --- Φάκελοι με Δεδομένα (PDFs & Εικόνες) ---
+invoices_pdf/
+*.pdf
+*.jpg
+*.png
+*.jpeg
+*.webp
+
+# --- Αποτελέσματα (Excel) ---
+*.xlsx
+
+# --- Αρχεία Συστήματος Python (Cache) ---
+__pycache__/
+*.py[cod]
+
+# --- Αρχεία από τη δημιουργία EXE (PyInstaller) ---
+build/
+dist/
+*.spec
+*.exe
+
+# --- Ρυθμίσεις IDE (π.χ. VS Code) ---
+.vscode/
+.idea/
